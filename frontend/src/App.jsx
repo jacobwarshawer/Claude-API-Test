@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 const CLAUDE_INPUT_ONE =
-  "What are the five most important news stories today? Your audience is an intelligent and educated American. The format of your repsponse is exactly five paragraphs, each paragraph is a summary of the most important news story. I repeat, your response is exactly five paragraphs, one for each news story.";
+  "What are the five most important news stories of March 4, 1976? Your audience is an intelligent and educated American. The format of your repsponse is exactly five paragraphs, each paragraph is a summary of the most important news story. I repeat, your response is exactly five paragraphs, one for each news story.";
 
 const CLAUDE_INPUT_TWO_PREFIX =
   "Write five entire news articles based on the five quick paragraphs given below, one article per paragraph. " +

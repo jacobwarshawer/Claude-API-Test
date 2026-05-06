@@ -17,25 +17,13 @@ app.post("/api/ask", async (req, res) => {
   }
 
   try {
-    const tools = [{ type: "web_search_20260209", name: "web_search" }];
-    const messages = [{ role: "user", content: prompt }];
+    const message = await client.messages.create({
+      model: "claude-haiku-4-5",
+      max_tokens: 4096,
+      messages: [{ role: "user", content: prompt }],
+    });
 
-    let response;
-    do {
-      response = await client.messages.create({
-        model: "claude-sonnet-4-6",
-        max_tokens: 4096,
-        tools,
-        messages,
-      });
-
-      if (response.stop_reason === "pause_turn") {
-        messages.push({ role: "assistant", content: response.content });
-      }
-    } while (response.stop_reason === "pause_turn");
-
-    const textBlocks = response.content.filter((b) => b.type === "text");
-    const text = textBlocks[textBlocks.length - 1]?.text ?? "";
+    const text = message.content.find((b) => b.type === "text")?.text ?? "";
     res.json({ response: text });
   } catch (err) {
     console.error(err);
